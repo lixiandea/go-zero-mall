@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package note;
+option go_package="./note";
+
+message CreateNoteRequest{
+    int64 author = 1;
+    string content=2;
+}
+
+message CreateNoteResponse{
+  int64 id=1;
+}
+
+message UpdateNoteRequest{
+  int64 id = 1;
+  string content = 2;
+}
+message UpdateNoteResponse{
+  int64 id = 1;
+}
+
+message DeleteNoteRequest{
+  int64 id = 1;
+}
+message DeleteNoteResponse{
+
+}
+
+message GetNoteRequest{
+  int64 id= 1;
+}
+message GetNoteResponse{
+  int64 userId = 1;
+  string content = 2;
+}
+
+service Note {
+  rpc GetNote(GetNoteRequest) returns(GetNoteResponse);
+  rpc CreateNote(CreateNoteRequest) returns(CreateNoteResponse);
+  rpc UpdateNote(UpdateNoteRequest) returns(UpdateNoteResponse);
+  rpc DeleteNote(DeleteNoteRequest) returns(DeleteNoteResponse);
+}
