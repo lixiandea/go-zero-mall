@@ -8,6 +8,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"github.com/go-redis/redis/v8"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 )
@@ -17,7 +18,11 @@ var (
 	redisClient *redis.Client
 )
 
-func init() {
-	sqlConn := sqlx.NewMysql("root:Cz05180921.@tcp(mysql:3306)/mall@charset=utf8&parseTime=true&loc=Asia%2FShanghai")
-	redisClient := redis.NewClient(&redis.Options{Addr: "localhost:6379"})
+func main() {
+	res, err := hex.DecodeString("00000000")
+	if err != nil {
+		return
+	}
+	print(len(res))
+	//print(hex.DecodeString("00000000"))
 }

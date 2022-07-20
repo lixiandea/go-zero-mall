@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"github.com/lixiandea/go-zero-mall/apps/user/user_rpc/model"
 
 	"github.com/lixiandea/go-zero-mall/apps/user/user_rpc/internal/svc"
 	"github.com/lixiandea/go-zero-mall/apps/user/user_rpc/user_rpc"
@@ -25,9 +26,27 @@ func NewUserSearchLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserSe
 
 func (l *UserSearchLogic) UserSearch(in *user_rpc.UserSearchRequest) (*user_rpc.UserSearchResponse, error) {
 	// TODO: 需要处理分页查询的内容
-	//user, err := l.svcCtx.UserModel.FindOneByName(l.ctx, in.UserName)
-	//if err != nil {
-	//	return nil, err
-	//}
-	return &user_rpc.UserSearchResponse{}, nil
+	users, err := l.svcCtx.UserModel.FindUsersByName(l.ctx, in.UserName)
+	if err != nil {
+		return nil, err
+	}
+	if users == nil {
+		return nil, model.ErrNotFound
+	}
+	userInfos := make([]*user_rpc.UserInfo, len(users))
+	for i := 0; i < len(users); i++ {
+		userInfos[i] = &user_rpc.UserInfo{
+			UserName:    users[i].Name,
+			UserAvatar:  users[i].Avatar,
+			UserEmail:   users[i].Email,
+			UserPhone:   users[i].Phone,
+			UserAddress: users[i].Address,
+			UserDesc:    "",
+			UserStatus:  users[i].Status,
+			UserGender:  uint32(users[i].Gender),
+		}
+	}
+	return &user_rpc.UserSearchResponse{
+		Infoes: userInfos,
+	}, nil
 }

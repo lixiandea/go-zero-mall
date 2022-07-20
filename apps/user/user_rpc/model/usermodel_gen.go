@@ -35,6 +35,8 @@ type (
 		FindOneByPhone(ctx context.Context, phone int64) (*User, error)
 		Update(ctx context.Context, newData *User) error
 		Delete(ctx context.Context, id int64) error
+		FindUsersByName(ctx context.Context, name string) ([]*User, error)
+		ListUserByUid(ctx context.Context, id int64, length int) ([]*User, error)
 	}
 
 	defaultUserModel struct {
@@ -135,6 +137,26 @@ func (m *defaultUserModel) FindOneByPhone(ctx context.Context, phone int64) (*Us
 	default:
 		return nil, err
 	}
+}
+
+func (m *defaultUserModel) FindUsersByName(ctx context.Context, name string) ([]*User, error) {
+	var resp []*User
+	query := fmt.Sprintf("select %s from %s where `name` = %%%s%", userRows, m.table, name)
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+func (m *defaultUserModel) ListUserByUid(ctx context.Context, id int64, length int) ([]*User, error) {
+	query := fmt.Sprintf("select %s from %s where `id` > %d limit %d", userRows, m.table, id, length)
+	var resp []*User
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
 
 func (m *defaultUserModel) Insert(ctx context.Context, data *User) (sql.Result, error) {
