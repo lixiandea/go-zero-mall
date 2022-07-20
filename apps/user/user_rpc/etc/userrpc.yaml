@@ -1,0 +1,21 @@
+Name: userrpc.rpc
+ListenOn: 127.0.0.1:9000
+Etcd:
+  Hosts:
+  - etcd:2379
+  Key: userrpc.rpc
+
+RedisCacheConf:
+- Host: redis:6379
+  Type: node
+
+MysqlConf:
+  DataSource: root:123456@tcp(mysql:3306)/mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+Salt: HWVOFkGgPTryzICwd7qnJaZR9KQ2i8xe
+
+Telemetry:
+  Name: user.rpc
+  Endpoint: http://jaeger:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger

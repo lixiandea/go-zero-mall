@@ -1,0 +1,65 @@
+type UserInfo {
+	UserName string `json:"name"`
+	Email    string `json:"email"`
+	//	Password string `json:"password"`
+	Phone   int64  `json:"phone"`
+	Address string `json:"address"`
+	Gender  int    `json:"gender"`
+	Status  string `json:"status"`
+	Desc    string `json:"desc"`
+	Avatar  string `json:"avatar"`
+}
+
+type RegisterRequest {
+	Info     UserInfo `json:"info"`
+	Password string   `json:"password"`
+}
+type RegisterResponse {
+	UserId int64 `json:"user_id"`
+}
+type LoginRequest {
+	UserName string `json:"user_name"`
+	Password string `json:"password"`
+}
+
+type LoginResponse {
+	User_id      int64    `json:"user_id"`
+	Info         UserInfo `json:"info"`
+	AccessToken  string   `json:"access_token"`
+	AccessExpire int64    `json:"access_expire"`
+}
+
+type UserInfoRequest {
+	UserId int64 `json:"user_id"`
+}
+type UserInfoResponse {
+	Info UserInfo `json:"info"`
+}
+
+type UserUpdateRequest {
+	UserId int64    `json:"user_id"`
+	Info   UserInfo `json:"info"`
+}
+
+type UserUpdateResponse {
+	UserId int64    `json:"user_id"`
+	Info   UserInfo `json:"info"`
+}
+
+service userAdmin-api {
+	@handler UserRegister
+	post /api/user/register (RegisterRequest) returns (RegisterResponse)
+	@handler UserLogin
+	post /api/user/login (LoginRequest) returns (LoginResponse)
+}
+
+@server(
+	jwt: Auth
+)
+
+service userAdmin-api  {
+	@handler UserInfo
+	get /api/user/info (UserInfoRequest) returns (UserInfoResponse)
+	@handler UserUpdate
+	post /api/user/update (UserUpdateRequest) returns (UserUpdateResponse)
+}

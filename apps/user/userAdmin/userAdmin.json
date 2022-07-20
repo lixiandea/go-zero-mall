@@ -1,0 +1,405 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "user",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "userAdmin-api"
+    }
+  ],
+  "paths": {
+    "/api/user/login": {
+      "post": {
+        "summary": "/api/user/login",
+        "x-apifox-folder": "userAdmin-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "UserLogin",
+        "tags": [
+          "userAdmin-api"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/info": {
+      "get": {
+        "summary": "/api/user/info",
+        "x-apifox-folder": "userAdmin-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "UserInfo",
+        "tags": [
+          "userAdmin-api"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInfoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfoResponse"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/update": {
+      "post": {
+        "summary": "/api/user/update",
+        "x-apifox-folder": "userAdmin-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "UserUpdate",
+        "tags": [
+          "userAdmin-api"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserUpdateResponse"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/register": {
+      "post": {
+        "summary": "/api/user/register",
+        "x-apifox-folder": "userAdmin-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "UserRegister",
+        "tags": [
+          "userAdmin-api"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponse"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserInfoResponse": {
+        "type": "object",
+        "properties": {
+          "info": {
+            "$ref": "#/components/schemas/UserInfo"
+          }
+        },
+        "title": "UserInfoResponse",
+        "required": [
+          "info"
+        ],
+        "x-apifox-orders": [
+          "info"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "info": {
+            "$ref": "#/components/schemas/UserInfo"
+          },
+          "access_token": {
+            "type": "string"
+          },
+          "access_expire": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "LoginResponse",
+        "required": [
+          "user_id",
+          "info",
+          "access_token",
+          "access_expire"
+        ],
+        "x-apifox-orders": [
+          "user_id",
+          "info",
+          "access_token",
+          "access_expire"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "RegisterResponse": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "RegisterResponse",
+        "required": [
+          "user_id"
+        ],
+        "x-apifox-orders": [
+          "user_id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "title": "LoginRequest",
+        "required": [
+          "user_name",
+          "password"
+        ],
+        "x-apifox-orders": [
+          "user_name",
+          "password"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "UserUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "info": {
+            "$ref": "#/components/schemas/UserInfo"
+          }
+        },
+        "title": "UserUpdateRequest",
+        "required": [
+          "user_id",
+          "info"
+        ],
+        "x-apifox-orders": [
+          "user_id",
+          "info"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "UserUpdateResponse": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "info": {
+            "$ref": "#/components/schemas/UserInfo"
+          }
+        },
+        "title": "UserUpdateResponse",
+        "required": [
+          "user_id",
+          "info"
+        ],
+        "x-apifox-orders": [
+          "user_id",
+          "info"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "info": {
+            "$ref": "#/components/schemas/UserInfo"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "title": "RegisterRequest",
+        "required": [
+          "info",
+          "password"
+        ],
+        "x-apifox-orders": [
+          "info",
+          "password"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "UserInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "address": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          }
+        },
+        "title": "UserInfo",
+        "required": [
+          "name",
+          "email",
+          "phone",
+          "address",
+          "gender",
+          "status",
+          "desc",
+          "avatar"
+        ],
+        "x-apifox-orders": [
+          "name",
+          "email",
+          "phone",
+          "address",
+          "gender",
+          "status",
+          "desc",
+          "avatar"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "UserInfoRequest": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "UserInfoRequest",
+        "required": [
+          "user_id"
+        ],
+        "x-apifox-orders": [
+          "user_id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      }
+    }
+  }
+}
