@@ -1,0 +1,54 @@
+type UpdateNoteRequest {
+	Id      int64  `json:"id"`
+	Title   string `json:"title"`
+	Context string `json:"context"`
+	Author  int64  `json:"author"`
+}
+
+type UpdateNoteResponse {
+	Id int64 `json:"id"`
+}
+
+type AddNoteRequest {
+	Title   string `json:"title"`
+	Context string `json:"context"`
+}
+
+type AddNoteResponse {
+	Id int64 `json:"id"`
+}
+
+type DeleteNoteRequest {
+	Id int64 `json:"id"`
+}
+
+type DeleteNoteResponse {
+}
+
+type GetNoteRequest {
+	Id int64 `json:"id"`
+}
+
+type GetNoteResponse {
+	Title   string `json:"title"`
+	Context string `json:"context"`
+	Author  int64  `json:"author"`
+}
+
+@server(
+	jwt: Auth
+)
+
+service noteAdmin-api {
+	@handler GetNoteHandler
+	post /api/note/getNote (GetNoteRequest) returns (GetNoteResponse)
+	
+	@handler UpdateNoteHandler
+	post /api/note/updateNote (UpdateNoteRequest) returns (UpdateNoteResponse)
+	
+	@handler DeleteNoteHandler
+	post /api/note/deleteNote (DeleteNoteRequest) returns (DeleteNoteResponse)
+	
+	@handler AddNoteHandlers
+	post /api/note/addNote (AddNoteRequest) returns (AddNoteResponse)
+}

@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package note_rpc;
+option go_package="./note_rpc";
+
+message UpdateNoteRequest {
+	int64 Id =1;
+	string Title  = 2;
+	string Context =3;
+	int64  Author  =4;
+}
+
+message UpdateNoteResponse {
+	int64 Id =1;
+}
+
+message AddNoteRequest {
+	string Title   = 1;
+	string Context = 2;
+}
+
+message AddNoteResponse {
+	int64  Id =1;
+}
+
+message DeleteNoteRequest {
+	int64 Id =1;
+}
+
+message DeleteNoteResponse {
+}
+
+message GetNoteRequest {
+	int64 Id  =1;
+}
+
+message GetNoteResponse {
+	string  Title   = 1;
+	string  Context = 2;
+	int64   Author  = 3;
+}
+
+service Note_rpc {
+  rpc UpdateNote(UpdateNoteRequest) returns (UpdateNoteResponse);
+  rpc DeleteNote(DeleteNoteRequest) returns (DeleteNoteResponse);
+  rpc AddNote(AddNoteRequest) returns (AddNoteResponse);
+  rpc GetNote(GetNoteRequest) returns (GetNoteResponse);
+}
