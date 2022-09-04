@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package video_rpc;
+option go_package="./video_rpc";
+
+message UpdateVideoRequest {
+	int64 Id =1;
+	string Title  = 2;
+	string URL =3;
+	int64  Author  =4;
+}
+
+message UpdateVideoResponse {
+	int64 Id =1;
+}
+
+message AddVideoRequest {
+	string Title   = 1;
+	string Context = 2;
+}
+
+message AddVideoResponse {
+	int64  Id =1;
+}
+
+message DeleteVideoRequest {
+	int64 Id =1;
+}
+
+message DeleteVideoResponse {
+}
+
+
+
+message GetVideoRequest {
+	int64 Id  =1;
+}
+
+message GetVideoResponse {
+	string  Title   = 1;
+	string  URL = 2;
+	int64   Author  = 3;
+}
+
+service video_rpc {
+  rpc UpdateVideo(UpdateVideoRequest) returns (UpdateVideoResponse);
+  rpc DeleteVideo(DeleteVideoRequest) returns (DeleteVideoResponse);
+  rpc AddVideo(AddVideoRequest) returns (AddVideoResponse);
+  rpc GetVideo(GetVideoRequest) returns (GetVideoResponse);
+}

@@ -141,7 +141,7 @@ func (m *defaultUserModel) FindOneByPhone(ctx context.Context, phone int64) (*Us
 
 func (m *defaultUserModel) FindUsersByName(ctx context.Context, name string) ([]*User, error) {
 	var resp []*User
-	query := fmt.Sprintf("select %s from %s where `name` = %%%s%", userRows, m.table, name)
+	query := fmt.Sprintf("select %s from %s where `name` like %%%s%% limit 100", userRows, m.table, name)
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, nil)
 	if err != nil {
 		return nil, err
