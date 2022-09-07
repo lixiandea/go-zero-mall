@@ -6,14 +6,15 @@ package server
 import (
 	"context"
 
-	"github.com/lixiandea/go-zero-mall/apps/video/video_rpc/internal/logic"
+	"github.com/lixiandea/go-zero-mall/apps/user/video_rpc/internal/logics"
 	"github.com/lixiandea/go-zero-mall/apps/video/video_rpc/internal/svc"
-	"github.com/lixiandea/go-zero-mall/apps/video/video_rpc/pb/video_rpc"
+	"github.com/lixiandea/go-zero-mall/apps/video/video_rpc/video_rpc"
 )
 
 type VideoRpcServer struct {
 	svcCtx *svc.ServiceContext
 	video_rpc.UnimplementedVideoRpcServer
+
 }
 
 func NewVideoRpcServer(svcCtx *svc.ServiceContext) *VideoRpcServer {

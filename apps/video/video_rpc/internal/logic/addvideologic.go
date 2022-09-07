@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/lixiandea/go-zero-mall/apps/video/video_rpc/internal/svc"
+	"github.com/lixiandea/go-zero-mall/apps/video/video_rpc/model"
 	"github.com/lixiandea/go-zero-mall/apps/video/video_rpc/pb/video_rpc"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -24,7 +25,25 @@ func NewAddVideoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddVideo
 }
 
 func (l *AddVideoLogic) AddVideo(in *video_rpc.AddVideoRequest) (*video_rpc.AddVideoResponse, error) {
-	// todo: add your logic here and delete this line
+	uid := l.ctx.Value("uid").(int)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	result, err := l.svcCtx.VideoModel.Insert(l.ctx, &model.Video{
+		Title:       in.Title,
+		Description: in.Context,
+		Author:      int64(uid),
+		Url:         "randomurl",
+	})
+	if err != nil {
+		return nil, err
+	}
+	vid, err := result.LastInsertId()
+	if err != nil {
+		return nil, err
+	}
 
-	return &video_rpc.AddVideoResponse{}, nil
+	return &video_rpc.AddVideoResponse{
+		Id: vid,
+	}, nil
 }

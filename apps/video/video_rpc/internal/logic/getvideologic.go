@@ -24,7 +24,13 @@ func NewGetVideoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetVideo
 }
 
 func (l *GetVideoLogic) GetVideo(in *video_rpc.GetVideoRequest) (*video_rpc.GetVideoResponse, error) {
-	// todo: add your logic here and delete this line
-
-	return &video_rpc.GetVideoResponse{}, nil
+	video_info, err := l.svcCtx.VideoModel.FindOne(l.ctx, in.Id)
+	if err != nil {
+		return nil, err
+	}
+	return &video_rpc.GetVideoResponse{
+		Title:  video_info.Title,
+		URL:    video_info.Url,
+		Author: video_info.Id,
+	}, nil
 }

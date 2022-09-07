@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/lixiandea/go-zero-mall/apps/video/video_rpc/internal/svc"
+	"github.com/lixiandea/go-zero-mall/apps/video/video_rpc/model"
 	"github.com/lixiandea/go-zero-mall/apps/video/video_rpc/pb/video_rpc"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -24,7 +25,16 @@ func NewUpdateVideoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Updat
 }
 
 func (l *UpdateVideoLogic) UpdateVideo(in *video_rpc.UpdateVideoRequest) (*video_rpc.UpdateVideoResponse, error) {
-	// todo: add your logic here and delete this line
-
+	info, err := l.svcCtx.VideoModel.FindOne(l.ctx, in.Id)
+	if err != nil {
+		return nil, err
+	}
+	err = l.svcCtx.VideoModel.Update(l.ctx, &model.Video{
+		Id:          info.Id,
+		Description: info.Description,
+		Url:         in.URL,
+		Author:      in.Author,
+		Title:       in.Title,
+	})
 	return &video_rpc.UpdateVideoResponse{}, nil
 }
